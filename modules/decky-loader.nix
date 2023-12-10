@@ -24,6 +24,14 @@ in
           '';
         };
 
+        enableFHSEnvironment = mkOption {
+          type = types.bool;
+          default = false;
+          description = lib.mdDoc ''
+            Allows plugins shipping with prebuilt binaries to function (e.g. PowerTools).
+          '';
+        };
+
         package = mkOption {
           type = types.package;
           default = pkgs.decky-loader;
@@ -105,8 +113,16 @@ in
           chown -R "${cfg.user}:" "${cfg.stateDir}"
         '';
 
-        serviceConfig = {
-          ExecStart = "${package}/bin/decky-loader";
+        serviceConfig = let
+          decky-loader = if !cfg.enableFHSEnvironment then
+            "${package}"
+          else
+            pkgs.buildFHSEnv {
+              name = "decky-loader";
+              runScript = "${package}/bin/decky-loader";
+            };
+        in {
+          ExecStart = "${decky-loader}/bin/decky-loader";
           KillMode = "process";
           TimeoutStopSec = 45;
         };
