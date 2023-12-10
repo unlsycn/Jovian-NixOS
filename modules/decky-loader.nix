@@ -104,6 +104,7 @@ in
           UNPRIVILEGED_USER = cfg.user;
           UNPRIVILEGED_PATH = cfg.stateDir;
           PLUGIN_PATH = "${cfg.stateDir}/plugins";
+          LD_LIBRARY_PATH = lib.makeLibraryPath cfg.extraPackages;
         };
 
         path = cfg.extraPackages;
