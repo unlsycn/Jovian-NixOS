@@ -12,6 +12,7 @@ in
     ./autostart.nix
     ./environment.nix
     ./updater.nix
+    ./inputmethod.nix
   ];
   options = {
     jovian = {

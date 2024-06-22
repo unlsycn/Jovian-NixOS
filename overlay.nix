@@ -100,6 +100,7 @@ rec {
   steam = final.callPackage ./pkgs/steam-jupiter/fhsenv.nix {
     steam = prev.steam;
   };
+  steam-im-modules = final.callPackage ./pkgs/steam-im-modules { };
 
   cecd = final.callPackage ./pkgs/cecd { };
   inputattach-cec-units = final.callPackage ./pkgs/inputattach-cec-units { };
