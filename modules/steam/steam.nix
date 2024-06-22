@@ -8,6 +8,11 @@ let
   ;
 
   cfg = config.jovian.steam;
+  gamescope-session = pkgs.gamescope-session.override {
+    steam = pkgs.steam.override (prev: {
+      extraPkgs = pkgs: config.programs.steam.extraPackages ++ lib.optionals (prev ? extraPkgs) (pkgs: [ pkgs ]);
+    });
+  };
 in
 {
   config = mkIf cfg.enable (mkMerge [
@@ -53,14 +58,14 @@ in
 
       environment.systemPackages = [
         pkgs.gamescope
-        pkgs.gamescope-session
+        gamescope-session
         pkgs.holo-polkit-helpers
         pkgs.steamos-manager
       ];
 
       systemd.packages = [
         pkgs.dmemcg-booster
-        pkgs.gamescope-session
+        gamescope-session
         pkgs.powerbuttond
         pkgs.steamos-manager
         pkgs.vpower
@@ -119,7 +124,7 @@ in
 
       services.dbus.packages = [ pkgs.steamos-manager ];
 
-      services.displayManager.sessionPackages = [ pkgs.gamescope-session ];
+      services.displayManager.sessionPackages = [ gamescope-session ];
 
       # Conflicts with powerbuttond
       services.logind.settings.Login = {
