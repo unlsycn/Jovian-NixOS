@@ -124,7 +124,6 @@ in
             };
         in {
           ExecStart = "${decky-loader}/bin/decky-loader";
-          KillMode = "process";
           TimeoutStopSec = 45;
         };
       };
