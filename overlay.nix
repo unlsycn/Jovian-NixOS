@@ -18,6 +18,15 @@ rec {
     ];
   };
 
+  linuxPackages_ally-z1e = linuxPackagesFor final.linux_ally-z1e;
+  linux_ally-z1e = final.callPackage ./pkgs/linux-ally-z1e { } {
+    kernelPatches = [
+      kernelPatches.bridge_stp_helper
+      kernelPatches.request_key_helper
+      kernelPatches.export-rt-sched-migrate
+    ];
+  };
+
   galileo-mura = final.callPackage ./pkgs/galileo-mura { };
 
   # This can't be callPackage, because it breaks the arguments
