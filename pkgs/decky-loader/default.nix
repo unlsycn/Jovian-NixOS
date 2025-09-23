@@ -18,6 +18,8 @@ python3.pkgs.buildPythonPackage rec {
     rev = "v${version}";
     hash = "sha256-QC1vmosEY+gQGMskA+y3yz3zpHJjXNjoYk3TA93ffJw=";
   };
+  
+  patches = [ ./respect-path.patch ];
 
   pnpmDeps = fetchPnpmDeps {
     inherit pname version src;
