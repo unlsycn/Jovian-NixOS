@@ -29,6 +29,7 @@ in
       boot.kernelPackages = mkDefault pkgs.linuxPackages_ally-z1e;
       # see https://github.com/Jovian-Experiments/steamos-customizations-jupiter/blob/jupiter-20241107.1/misc/modules-load.d/hid-preload.conf
       boot.kernelModules = ["hid_nintendo" "hid_playstation"];
+      boot.kernelParams = ["amdgpu.gttsize=8128"];
     }
   ]);
 }
