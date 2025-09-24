@@ -23,7 +23,7 @@ in
     ./perf-control.nix
     # ./sdgyrodsu.nix
     # ./sound.nix
-    # ./workarounds.nix
+    ./workarounds.nix
   ];
 
   options = {
