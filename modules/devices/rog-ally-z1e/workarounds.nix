@@ -25,7 +25,7 @@ in
       };
     };
   };
-  config = mkIf (cfg.enableInputPlumberWorkarounds) {
+  config = mkIf (config.services.inputplumber.enable && cfg.enableInputPlumberWorkarounds) {
     systemd.services.restart-inputplumber-after-resume = {
       description = "Restart InputPlumber after resume";
       after = ["sleep.target"];
