@@ -5,9 +5,9 @@
 let
   inherit (lib) versions;
 
-  kernelVersion = "6.15.11";
-  vendorVersion = "valve1";
-  hash = "sha256-hi+kMtQTxpRFuE3gxth4QlJb3AOqHVWbJaaA2MDYq1s=";
+  kernelVersion = "6.16.12";
+  vendorVersion = "valve7";
+  hash = "sha256-x9moiht4YqVpg+048ol6NXW08OogUjAGAC8a6pd9Y3U=";
 in
 (linuxManualConfig
   (args // rec {
