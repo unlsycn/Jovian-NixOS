@@ -10,9 +10,9 @@
 let
   inherit (lib) versions;
 
-  kernelVersion = "6.16.12";
-  vendorVersion = "valve7";
-  hash = "sha256-x9moiht4YqVpg+048ol6NXW08OogUjAGAC8a6pd9Y3U=";
+  kernelVersion = "6.18.33";
+  vendorVersion = "valve1";
+  hash = "sha256-MkYCrIsOcuwnCaqrvwaRCN7LBW/mHOotEzl37zhSlzk=";
 
   structuredConfig = import ./structured-config.nix { inherit lib; };
   isDigit =
