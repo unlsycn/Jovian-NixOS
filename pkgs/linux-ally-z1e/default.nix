@@ -2,7 +2,6 @@
   lib,
   fetchFromGitHub,
   buildLinux,
-  writeText,
   ...
 }:
 { ... }@args:
@@ -15,52 +14,9 @@ let
   hash = "sha256-MkYCrIsOcuwnCaqrvwaRCN7LBW/mHOotEzl37zhSlzk=";
 
   structuredConfig = import ./structured-config.nix { inherit lib; };
-  isDigit =
-    char:
-    lib.elem char [
-      "0"
-      "1"
-      "2"
-      "3"
-      "4"
-      "5"
-      "6"
-      "7"
-      "8"
-      "9"
-    ];
-  isNumeric = value: value != "" && lib.all isDigit (lib.stringToCharacters value);
-  renderFreeformSeed =
-    value: if isNumeric value || lib.hasPrefix "0x" value then value else builtins.toJSON value;
-  renderValue =
-    value:
-    if builtins.hasAttr "freeform" value then
-      renderFreeformSeed value.freeform
-    else if value.tristate == "y" then
-      "y"
-    else if value.tristate == "m" then
-      "m"
-    else if value.tristate == "n" then
-      "n"
-    else
-      null;
   shouldCheckConfig =
     name: value: name != "CC_CAN_LINK" && !(builtins.hasAttr "freeform" value && value.freeform == "");
   checkedStructuredConfig = lib.filterAttrs shouldCheckConfig structuredConfig;
-  renderConfigLine =
-    name: value:
-    let
-      renderedValue = renderValue value;
-    in
-    if renderedValue == null then
-      ""
-    else if renderedValue == "n" then
-      "# CONFIG_${name} is not set\n"
-    else
-      "CONFIG_${name}=${renderedValue}\n";
-  configSeed = writeText "ally-z1e-config-seed" (
-    lib.concatStrings (lib.mapAttrsToList renderConfigLine structuredConfig)
-  );
 in
 (buildLinux (
   args
@@ -70,7 +26,7 @@ in
     # branchVersion needs to be x.y
     extraMeta.branch = versions.majorMinor version;
 
-    defconfig = "KCONFIG_ALLCONFIG=${configSeed} allnoconfig";
+    defconfig = "defconfig";
     enableCommonConfig = false;
     autoModules = false;
     ignoreConfigErrors = false;
