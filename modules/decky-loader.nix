@@ -27,7 +27,7 @@ in
         enableFHSEnvironment = mkOption {
           type = types.bool;
           default = false;
-          description = lib.mdDoc ''
+          description = ''
             Allows plugins shipping with prebuilt binaries to function (e.g. PowerTools).
           '';
         };

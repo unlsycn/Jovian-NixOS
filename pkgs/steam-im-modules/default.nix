@@ -1,7 +1,9 @@
 { stdenv
 , fetchFromGitHub
-, extra-cmake-modules
+, cmake
+, kdePackages
 , libsForQt5
+, pkg-config
 , gtk3
 , gtk4
 , lib
@@ -18,8 +20,10 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [
-    extra-cmake-modules
+    cmake
+    kdePackages.extra-cmake-modules
     libsForQt5.wrapQtAppsHook
+    pkg-config
   ];
 
   dontWrapQtApps = true;
@@ -28,6 +32,10 @@ stdenv.mkDerivation {
     libsForQt5.qtbase
     gtk3
     gtk4
+  ];
+
+  cmakeFlags = [
+    "-DCMAKE_POLICY_VERSION_MINIMUM=3.5"
   ];
 
   cmakeBuildType = "RelWithDebInfo";
