@@ -696,7 +696,7 @@ with lib.kernel;
   "SND_HDA_CODEC_ALC260" = no;
   "SND_HDA_CODEC_ALC262" = no;
   "SND_HDA_CODEC_ALC268" = no;
-  "SND_HDA_CODEC_ALC269" = no;
+  "SND_HDA_CODEC_ALC269" = module;
   "SND_HDA_CODEC_ALC662" = no;
   "SND_HDA_CODEC_ALC680" = no;
   "SND_HDA_CODEC_ALC861" = no;

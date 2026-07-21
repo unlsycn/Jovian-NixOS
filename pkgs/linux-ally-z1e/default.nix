@@ -9,9 +9,9 @@
 let
   inherit (lib) versions;
 
-  kernelVersion = "6.18.33";
+  kernelVersion = "6.18.38";
   vendorVersion = "valve1";
-  hash = "sha256-MkYCrIsOcuwnCaqrvwaRCN7LBW/mHOotEzl37zhSlzk=";
+  hash = "sha256-nDlTk+MUngBD1chFxESWzSxZRzT9Ue1eC9OnzwZw8pQ=";
 
   structuredConfig = import ./structured-config.nix { inherit lib; };
   shouldCheckConfig =
