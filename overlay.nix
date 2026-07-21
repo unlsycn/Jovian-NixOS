@@ -66,6 +66,7 @@ rec {
   jupiter-dock-updater-bin = final.callPackage ./pkgs/jupiter-dock-updater-bin { };
   steamos-manager = final.callPackage ./pkgs/steamos-manager { };
   holo-polkit-helpers = final.callPackage ./pkgs/jupiter-hw-support/polkit-helpers.nix { };
+  holo-session-selection = final.callPackage ./pkgs/holo-session-selection/default.nix { };
   steamdeck-dsp = final.callPackage ./pkgs/steamdeck-dsp { };
   pipewire-jupiter = final.callPackage ./pkgs/pipewire {
     pipewire' = prev.pipewire;

@@ -10,6 +10,7 @@
   jovian-stubs,
   jupiter-dock-updater-bin,
   jupiter-hw-support,
+  libcap,
   steamdeck-firmware,
   systemd,
   wirelesstools,
@@ -30,6 +31,7 @@ let
       jovian-stubs
       jupiter-hw-support
       "${jupiter-hw-support}/lib/hwsupport"
+      libcap
       steamdeck-firmware
       systemd
       wirelesstools

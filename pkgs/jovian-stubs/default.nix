@@ -7,7 +7,6 @@ stdenv.mkDerivation {
     install -D -m 755 ${./holo-firmware-update} $out/bin/holo-firmware-update
     install -D -m 755 ${./holo-reboot} $out/bin/holo-reboot
     install -D -m 755 ${./holo-select-branch} $out/bin/holo-select-branch
-    install -D -m 755 ${./holo-session-select} $out/bin/holo-session-select
     install -D -m 755 ${./holo-update} $out/bin/holo-update
 
     install -D -m 755 ${./pkexec} $out/bin/pkexec
@@ -15,6 +14,8 @@ stdenv.mkDerivation {
 
     # apparently still used by Steam (see jupiter-legacy-support)
     install -D -m 755 ${./holo-select-branch} $out/bin/steamos-select-branch
-    install -D -m 755 ${./holo-update} $out/bin/steamos-update
+    install -D -m 755 ${./holo-update} $out/bin/steamos-polkit-helpers/steamos-update
+    install -D -m 755 ${./jupiter-biosupdate} $out/bin/steamos-polkit-helpers/jupiter-biosupdate
+    install -D -m 755 ${./jupiter-dock-updater} $out/bin/steamos-polkit-helpers/jupiter-dock-updater
   '';
 }

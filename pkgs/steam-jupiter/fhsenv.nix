@@ -4,6 +4,7 @@
 { writeShellScriptBin
 , dmidecode
 , jovian-stubs
+, holo-session-selection
 , steam
 
 # We need to add this flag when Steam is started directly (e.g., desktop mode)
@@ -21,6 +22,7 @@ let
     "writeShellScriptBin"
     "dmidecode"
     "jovian-stubs"
+    "holo-session-selection"
     "platformArgs"
     "steam"
   ];
@@ -29,6 +31,7 @@ let
     extraPkgs = pkgs: (if args ? extraPkgs then args.extraPkgs pkgs else [ ]) ++ [
       dmidecode
       jovian-stubs
+      holo-session-selection
     ];
     extraProfile = (args.extraProfile or "") + ''
       export PATH=${jovian-stubs}/bin:$PATH

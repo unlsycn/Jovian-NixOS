@@ -1,0 +1,5 @@
+#!/bin/sh
+>&2 echo "[JOVIAN] $0: stub called with: $*"
+>&2 echo "[JOVIAN] jupiter-dock-updater requires elevation, which is currently not available in the sandbox"
+>&2 echo "[JOVIAN] Please run 'sudo jupiter-dock-updater' from outside Steam if necessary"
+exit 7

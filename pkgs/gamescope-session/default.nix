@@ -28,7 +28,6 @@
   steam_notif_daemon,
   systemd,
   util-linux,
-  xbindkeys,
 }:
 
 let
@@ -113,13 +112,13 @@ let
   };
 in stdenv.mkDerivation(finalAttrs: {
   pname = "gamescope-session";
-  version = "3.16.24-2";
+  version = "3.16.24-3";
 
   src = fetchFromGitHub {
     owner = "Jovian-Experiments";
     repo = "PKGBUILDs-mirror";
     rev = "jupiter-main/gamescope-${finalAttrs.version}";
-    hash = "sha256-XdtjNK5VjuaRHvuTKqXqR4wS2eE+ssFMtuh5SKHxxnM=";
+    hash = "sha256-/SoKstTzTjqCTaoJhJFBsiDD2Z6euFA0nv2sPsKFNOw=";
   };
 
   patches = [
@@ -141,8 +140,6 @@ in stdenv.mkDerivation(finalAttrs: {
     substituteInPlace galileo-mura-setup.service --replace-fail /usr/bin ${galileo-mura}/bin
     substituteInPlace gamescope-mangoapp.service --replace-fail /usr/bin ${mangohud}/bin
     substituteInPlace gamescope-session.service --replace-fail /usr/lib $out/lib
-    # Jovian: we're not going to install this
-    # substituteInPlace gamescope-xbindkeys.service --replace-fail /usr/bin ${xbindkeys}/bin
     substituteInPlace ibus-gamescope.service --replace-fail /usr/bin ${ibus}/bin
 
     # can't resholve systemd units :(
@@ -180,8 +177,6 @@ in stdenv.mkDerivation(finalAttrs: {
     install -D -m 644 ibus-gamescope.service  $out/lib/systemd/user/ibus-gamescope.service 
     install -D -m 644 steam-launcher.service $out/lib/systemd/user/steam-launcher.service
     install -D -m 644 steam-notif-daemon.service $out/lib/systemd/user/steam-notif-daemon.service
-    # Jovian: don't install this, it's not useful for us
-    # install -D -m 644 gamescope-xbindkeys.service $out/lib/systemd/user/gamescope-xbindkeys.service
 
     # portals
     install -D -m 644 gamescope-portals.conf $out/share/xdg-desktop-portal/gamescope-portals.conf

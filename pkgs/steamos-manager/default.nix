@@ -21,17 +21,17 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "steamos-manager";
-  version = "26.2.1";
+  version = "26.4.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.steamos.cloud";
     owner = "holo";
     repo = "steamos-manager";
     tag = "v${version}";
-    hash = "sha256-DpDLvoCYEPh46im4OFGa7KMUBX50wExH/y/haq4eq8k=";
+    hash = "sha256-rtLLs/4Ip5UxawyGC18s/1Z8N2qrgrlgyG0rXEWlTiE=";
   };
 
-  cargoHash = "sha256-6eq245UqKfCoUVLWIMTzE4Og4xCUZ/zhzG4yn1+8r+s=";
+  cargoHash = "sha256-ktqic3Okx5K6JvWRrFZphitCGRNrtRCQBeMGFiV812k=";
 
   # tests assume Steam Deck hardware and FHS paths
   doCheck = false;
@@ -51,6 +51,7 @@ rustPlatform.buildRustPackage rec {
       scx = scx.rustscheds;
       out = null;
     })
+    ./fix-sddm-config-path.patch
     # FIXME: build steamos-log-submitter and reenable this maybe?
     ./disable-ftrace.patch
   ];

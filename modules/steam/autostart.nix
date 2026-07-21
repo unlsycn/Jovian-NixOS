@@ -93,7 +93,7 @@ in
       systemd.services.display-manager.serviceConfig.ExecStartPre = "-${pkgs.coreutils}/bin/rm /etc/sddm.conf.d/zzt-steamos-temp-login.conf";
 
       # tell steamos-manager it's allowed to manage our session
-      environment.etc."sddm.conf.d/steamos.conf".text = "";
+      environment.etc."sddm.conf.d/holo.conf".text = "";
 
       # Steam overrides this SOMETIMES seemingly for no reason
       # so we need to force it back to the user's choice.
