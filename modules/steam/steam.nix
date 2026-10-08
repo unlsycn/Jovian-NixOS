@@ -148,6 +148,15 @@ in
         KERNEL=="uinput", SUBSYSTEM=="misc", TAG+="uaccess", OPTIONS+="static_node=uinput"
       '';
 
+      # The responsibility for the equivalent action when out of battery charge is
+      # taken by a combination of vpower and SteamUI, when it dips below 0.5% (at the
+      # time of writing), and it gives a 10 second margin for SteamUI to close.
+      # https://github.com/Jovian-Experiments/PKGBUILDs-mirror/blob/holo-main/holo-upower-config/10-holo-defaults.conf
+      services.upower = {
+        allowRiskyCriticalPowerAction = true;
+        criticalPowerAction = "Ignore";
+      };
+
       # This rule allows the user to configure Wi-Fi in Deck UI.
       #
       # Steam modifies the system network configs via
@@ -166,6 +175,17 @@ in
           }
         });
       '';
+      
+      # allow lower niceness for Proton processes
+      # see: https://github.com/Jovian-Experiments/steamos-customizations-jupiter/blob/jupiter-20260823.1/misc/limits.d/15-proton-nice.conf 
+      security.pam.loginLimits = [
+        {
+          item = "nice";
+          type = "hard";
+          domain = "*";
+          value = "-8";
+        }
+      ];
 
       jovian.steam.environment = {
         # We don't support adopting a drive, yet.

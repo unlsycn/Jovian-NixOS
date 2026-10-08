@@ -1,43 +1,31 @@
-{ lib
-, fetchFromGitHub
-, nodejs
-, pnpm_10
-, fetchPnpmDeps
-, pnpmConfigHook
-, python3
-, coreutils
-, psmisc
+{
+  lib,
+  fetchFromGitHub,
+  nodejs,
+  pnpm_11,
+  fetchPnpmDeps,
+  pnpmConfigHook,
+  python3,
+  coreutils,
+  psmisc,
 }:
 python3.pkgs.buildPythonPackage rec {
   pname = "decky-loader";
-  version = "3.2.6";
+  version = "3.2.10";
 
   src = fetchFromGitHub {
     owner = "SteamDeckHomebrew";
     repo = "decky-loader";
     rev = "v${version}";
-    hash = "sha256-p1bkLsZedTZ29POqdaXvVpPXzg9kBTKgUxkkEAyAkT0=";
+    hash = "sha256-YLv9rC9cDH+LoVTIc4jSn/tZV3S+jC37RrnK2b/q++c=";
   };
-  
-  patches = [ ./respect-path.patch ];
-
-  # confuses our pnpm tooling
-  postPatch = ''
-    rm frontend/pnpm-workspace.yaml
-  '';
 
   pnpmDeps = fetchPnpmDeps {
-    fetcherVersion = 3;
+    fetcherVersion = 4;
     inherit pname version src;
-
-    # copy here because of sourceRoot
-    postPatch = ''
-      rm pnpm-workspace.yaml
-    '';
-
-    pnpm = pnpm_10;
+    pnpm = pnpm_11;
     sourceRoot = "${src.name}/frontend";
-    hash = "sha256-X1L8JYG5hgYMmfg0aa8XhkRU6/oFrYTPiXDIyq77puE=";
+    hash = "sha256-w4UFsNqy8fYjpQ5jgPRQ4bfVZJb3aitYUsnf4PP8Itc=";
   };
 
   pyproject = true;
@@ -46,7 +34,7 @@ python3.pkgs.buildPythonPackage rec {
 
   nativeBuildInputs = [
     nodejs
-    pnpm_10
+    pnpm_11
     pnpmConfigHook
   ];
 
@@ -56,7 +44,7 @@ python3.pkgs.buildPythonPackage rec {
     cd ../backend
   '';
 
-  build-system = with python3.pkgs; [ 
+  build-system = with python3.pkgs; [
     poetry-core
     poetry-dynamic-versioning
   ];
@@ -73,7 +61,12 @@ python3.pkgs.buildPythonPackage rec {
   ];
 
   makeWrapperArgs = [
-    "--prefix PATH : ${lib.makeBinPath [ coreutils psmisc ]}"
+    "--prefix PATH : ${
+      lib.makeBinPath [
+        coreutils
+        psmisc
+      ]
+    }"
   ];
 
   pythonRelaxDeps = [
